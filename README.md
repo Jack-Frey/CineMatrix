@@ -17,7 +17,7 @@ into your terminal, whatever is easier.
 3. Install dependencies
 Navigate to the project folder and type
 ```
-npm install
+npm install express body-parser node-fetch
 ```
 to download the packages needed to run the project
 
