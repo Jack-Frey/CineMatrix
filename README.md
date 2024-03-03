@@ -2,33 +2,31 @@
 Group Project for CSE201 
 
 # How to use
-1. Download NodeJS
-<br>
-Go the the [NodeJS website](https://nodejs.org/en/download) and download the executable for 
-your operating system. <br>
-Note: it will ask if you want to install something called chocolatey. This isn't required for this project so don't install it (unless you want to I guess).
-<br>
+1. Download NodeJS   
 
-2. Download Github Repo
-<br>
+Go the the [NodeJS website](https://nodejs.org/en/download) and download the executable for 
+your operating system.   
+
+Note: it will ask if you want to install something called chocolatey. This isn't required for this project so don't install it (unless you want to I guess).   
+
+2. Download Github Repo   
+
 Either download the .zip or type 
 ```
 git clone https://github.com/Jack-Frey/CineMatrix 
 ```
 into your terminal, whatever is easier.
-<br>
 
-3. Install dependencies
-<br>
+3. Install dependencies   
+
 Navigate to the project folder and type
 ```
 npm install express body-parser node-fetch
 ```
 to download the packages needed to run the project
-<br>
 
-4. Run it
-<br>
+4. Run it   
+
 To start the server, type
 ```
 node index.js
