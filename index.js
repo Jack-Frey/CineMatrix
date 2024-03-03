@@ -10,15 +10,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
     extended: true
 }))
-//app.use(express.json())
-//app.use(express.urlencoded())
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'))
 })
 
 app.post('/search/movie', (req, res) => {
-    //console.log(req.body);
     var movieName = req.body.textbox;
     var url = 'https://api.themoviedb.org/3/search/movie?query=' 
         + movieName + '&include_adult=false&language=en-US&page=1';
