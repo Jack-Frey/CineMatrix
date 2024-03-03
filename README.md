@@ -3,9 +3,11 @@ Group Project for CSE201
 
 # How to use
 1. Download NodeJS
+<br>
 Go the the [NodeJS website](https://nodejs.org/en/download) and download the executable for 
 your operating system. <br>
 Note: it will ask if you want to install something called chocolatey. This isn't required for this project so don't install it (unless you want to I guess).
+<br>
 
 2. Download Github Repo
 <br>
