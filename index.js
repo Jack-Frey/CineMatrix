@@ -3,6 +3,8 @@ const app = express()
 const path = require('path')
 const bodyParser = require('body-parser') 
 
+const {fetch_api} = require('./tools.js')
+
 const port = 3000
 
 app.use(express.static('public'))
@@ -23,19 +25,14 @@ async function get_results(name, options) {
 
     var results = []
 
-    const [response1, response2] = await Promise.all([
-        fetch(urlMovies, options),
-        fetch(urlShows, options)
-    ])
+    const movieResults = await fetch_api(urlMovies, options);
+    const TVResults = await fetch_api(urlShows, options);
 
-    const movieResults = await response1.json()
-    const TVResults = await response2.json()
-
-    for (let index in movieResults['results']) {
-        results.push(movieResults['results'][index])
+    for (let index in movieResults) {
+        results.push(movieResults[index])
     }
-    for (let index in TVResults['results']) {
-        results.push(TVResults['results'][index])
+    for (let index in TVResults) {
+        results.push(TVResults[index])
     }
 
     return results
@@ -43,11 +40,6 @@ async function get_results(name, options) {
 
 app.post('/search', (req, res) => {
     var contentName = req.body.textbox;
-
-    var urlMovies = 'https://api.themoviedb.org/3/search/movie?query='
-        + contentName + '&include_adult=false&language=en-US&page=1'
-    var urlShows = 'https://api.themoviedb.org/3/search/tv?query='
-        + contentName + '&include_adult=false&language=en-US&page=1'
 
     var options = {
         method: 'GET',
