@@ -29,6 +29,8 @@ Really, the important part is the `Authorization` field, which has the API key n
 
 To add new features, you'll probably need to reference the API documentation, which can be found [here](https://developer.themoviedb.org/reference/intro/getting-started). It'll give some simple examples for each API call showing you how to use them. Really what you should look for is the URL the call is using, which you'll pass into the `fetch_api` function to get the data.
 
+
+
 ## Examples
 ### Movie Search
 ```
@@ -66,6 +68,8 @@ The `searchResults` variable will be an array of about 20 movies, each of which 
 ```
 This should have all the information that we need for sorting and stuff. The `id` tag will also be useful for other parts of the API, which needs a movie/show ID for their API call.
 
+
+
 ### TV Show Search
 This example is basically the same as above.
 ```
@@ -98,4 +102,48 @@ The results are basically the same also (except for `release_data` is now `first
       "vote_average": 8.5,
       "vote_count": 1871
 }
-'''
+```
+
+
+
+### Trending List
+Gets a list of the currently trending movies/shows.  
+
+Movies:
+```
+const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+const popularMovies = await fetch_api(url, options);
+```
+
+TV Shows:
+```
+const url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
+const popularShows = await fetch_api(url, options);
+```
+
+
+
+### Top Rated
+Gets a list of the highest rated movies/shows of all time.  
+
+Movies:
+```
+const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+const topRatedMovies = await fetch_api(url, options);
+```  
+
+TV Shows:
+```
+const url = 'https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1';
+const topRatedShows = await fetch_api(url, options);
+```  
+
+
+
+### Search Actors
+```
+const name = "actor name";
+const url = 'https://api.themoviedb.org/3/search/person?query=' +
+            name + '&include_adult=false&language=en-US&page=1';
+const actor = await fetch_api(url, options);
+```
