@@ -19,6 +19,7 @@ into your terminal, whatever is easier.
 
 3. Install dependencies   
 
+cd CineMatrix
 Navigate to the project folder and type
 ```
 npm install express body-parser node-fetch
@@ -29,7 +30,7 @@ to download the packages needed to run the project
 
 To start the server, type
 ```
-node index.js
+node routes/index.js
 ```
 If everything works, you'll see the text
 ```

@@ -3,19 +3,50 @@ const app = express()
 const path = require('path')
 const bodyParser = require('body-parser') 
 
-const {fetch_api} = require('./tools.js')
+const hbs = require('hbs');
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+hbs.registerHelper('get', (context, property) => context[property]);
+
+const {fetch_api} = require('../tools.js')
 
 const port = 3000
-
-app.use(express.static('public'))
-app.use(bodyParser.json())
+app.use('/stylesheets', express.static(path.join(__dirname, 'stylesheets')));
+app.use('/routes', express.static(path.join(__dirname, 'routes')));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
-}))
+}));
+
+async function getImages(options) {
+
+    const results = await fetch_api('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options);
+    
+    return results;
+}
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/index.html'))
-})
+
+    var options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjAyMGE3NDdlOThkYWFkZTk3YmZhNGJjMGJmYzI3MiIsInN1YiI6IjY1ZTBmNzliYTM5ZDBiMDE2MzA3ZDhmZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w7gWjNh2OHWhiq5Uh_JhhKG78c2ktBEimG8Vm89REXo'
+        }
+    }
+
+    var display = [];
+
+    getImages(options).then(results => {
+        for (let i = 0; i < results.length; i++) {
+            let path = results[i]['poster_path']
+            display.push('https://image.tmdb.org/t/p/original/' + path);
+        }
+
+        res.render(path.join(__dirname, '../views/index'), { images: display });
+    })    
+
+  });
 
 async function get_results(name, options) {
     var urlMovies = 'https://api.themoviedb.org/3/search/movie?query='
@@ -37,6 +68,7 @@ async function get_results(name, options) {
 
     return results
 }
+
 
 app.post('/search', (req, res) => {
     var contentName = req.body.textbox;
