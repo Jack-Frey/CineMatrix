@@ -82,22 +82,47 @@ app.post('/search', (req, res) => {
         }
     }
 
+    var display = [];
+    /*
+    format for item object
+    {
+        "name" : name,
+        "date" : release_date/first_air_date,
+        "desc" : overview
+        "img"  : poster_path
+    }
+    */
     get_results(contentName, options).then(results => {
-        var display = ""
         for (let i = 0; i < results.length; i++) {
+            // Checks if current item is a movie
             if ("title" in results[i]) {
                 let name = results[i]['title']
                 let date = results[i]['release_date'].slice(0, 4)
-                let str = name + " (" + date + ") <br>"
-                display += str
-            } else {
+                let desc = results[i]['overview']
+                let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
+                display.push({
+                    "name" : name,
+                    "date" : date,
+                    "desc" : desc,
+                    "img"  : img
+                });
+            } 
+            // Otherwise it's a TV show
+            else {
                 let name = results[i]['name'];
                 let date = results[i]['first_air_date'].slice(0,4)
-                let str = name +" (" + date + ") <br>"
-                display += str
+                let desc = results[i]['overview']
+                let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
+                display.push({
+                    "name" : name,
+                    "date" : date,
+                    "desc" : desc,
+                    "img"  : img
+                });
             }
         }
-        res.send(display)
+
+        res.render(path.join(__dirname, "../views/searchResults"), {results: display});
     })
 })
 
