@@ -19,6 +19,27 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+async function get_results(name, options) {
+    var urlMovies = 'https://api.themoviedb.org/3/search/movie?query='
+        + name + '&include_adult=false&language=en-US&page=1'
+    var urlShows = 'https://api.themoviedb.org/3/search/tv?query='
+        + name + '&include_adult=false&language=en-US&page=1'    
+
+    var results = []
+
+    const movieResults = await fetch_api(urlMovies, options);
+    const TVResults = await fetch_api(urlShows, options);
+
+    for (let index in movieResults) {
+        results.push(movieResults[index])
+    }
+    for (let index in TVResults) {
+        results.push(TVResults[index])
+    }
+
+    return results
+}
+
 async function getImages(options) {
 
     const results = await fetch_api('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options);
@@ -47,29 +68,11 @@ app.get('/', (req, res) => {
         res.render(path.join(__dirname, '../views/index'), { images: display });
     })    
 
-  });
+});
 
-async function get_results(name, options) {
-    var urlMovies = 'https://api.themoviedb.org/3/search/movie?query='
-        + name + '&include_adult=false&language=en-US&page=1'
-    var urlShows = 'https://api.themoviedb.org/3/search/tv?query='
-        + name + '&include_adult=false&language=en-US&page=1'    
-
-    var results = []
-
-    const movieResults = await fetch_api(urlMovies, options);
-    const TVResults = await fetch_api(urlShows, options);
-
-    for (let index in movieResults) {
-        results.push(movieResults[index])
-    }
-    for (let index in TVResults) {
-        results.push(TVResults[index])
-    }
-
-    return results
-}
-
+app.get("/about", (req, res) => {
+    res.render(path.join(__dirname, "../views/about"));
+})
 
 app.post('/search', (req, res) => {
     var contentName = req.body.textbox;
