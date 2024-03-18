@@ -124,10 +124,17 @@ app.post('/search', (req, res) => {
                 });
             }
         }
-        
-        // Sort results by most recent to oldest release year
+
+        // Order search results by highest to lowest rating and then by newest to oldest release date.
         display.sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
+            // Compare by rating first
+            const ratingComparison = b.rating - a.rating;
+            if (ratingComparison !== 0) {
+                return ratingComparison; // If ratings are different, return the comparison result
+            } else {
+                // If ratings are the same, compare by year
+                return new Date(b.date) - new Date(a.date);
+            }
         });
 
         res.render(path.join(__dirname, "../views/searchResults"), {results: display});
