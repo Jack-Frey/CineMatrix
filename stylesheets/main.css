@@ -13,3 +13,11 @@ h1 {
 #search {
     margin-top: 50px;
 }
+
+.bg-light-dark {
+  background-color: #2e3f45;
+}
+
+.text-light-white {
+  color: #e5e5e5;
+}

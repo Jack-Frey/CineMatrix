@@ -14,43 +14,167 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet">
   </head>
+
   <body>
+
+    <!-- Navagation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand d-lg-none" href="#">
-        <img src="../images/logo.png" alt="Logo" width="120">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">HOME</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/movies">MOVIES</a>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand d-none d-md-block" href="#">
-                <img src="/images/logo.png" alt="Logo" width="120">
-                </a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="/tvshows">TV SHOWS</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">ABOUT</a>
-            </li>
-        </ul>
-        </div>
-    </div>
+      <div class="container-fluid">
+          <a class="navbar-brand d-lg-none" href="#">
+          <img src="../images/logo.png" alt="Logo" width="120">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">HOME</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/movies">MOVIES</a>
+              </li>
+              <li class="nav-item">
+                  <a class="navbar-brand d-none d-md-block" href="#">
+                  <img src="/images/logo.png" alt="Logo" width="120"></a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="/tvshows">TV SHOWS</a>
+              </li>
+              <li class="nav-item">
+              <a class="nav-link" href="#">ABOUT</a>
+              </li>
+          </ul>
+          </div>
+      </div>
     </nav>
 
-    <div class="container">
-      <h2 style="font-size: 60px;"> About us </h2>
-      <p> Someone fill this in pls </p>
+    <!-- Who We Are Section -->
+    <section class="py-3 py-md-5 mb-0">
+      <div class="container">
+        <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+
+          <!-- Overall image (Can be logo or team picture or generic picture) -->
+          <div class="col-12 col-lg-6 col-xl-5">
+            <img class="img-fluid rounded-4" loading="lazy" src="https://dummyimage.com/500x400/343a40/6c757d" alt="About 1" height="400" width="500">
+          </div>
+
+          <div class="col-12 col-lg-6 col-xl-7">
+            <div class="row justify-content-xl-center">
+              <div class="col-12 col-xl-11">
+
+                <!-- Who We Are Info -->
+                <h2 class="display-5 text-white fw-bolder mb-4">Who Are We?</h2>
+                <p class="text-white mb-5">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+                
+                <!-- Two Company Goals/Sayings -->
+                <div class="row gy-4 gy-md-0 gx-xxl-5X">
+                  <div class="col-12 col-md-6">
+                    <div class="d-flex">
+
+                      <!-- Saying #1 -->
+                      <div class="me-4">
+                        <img class="img" src="https://dummyimage.com/50x50/343a40/6c757d" alt="..." width="50" height="50" />
+                      </div>
+                      <div>
+                        <h2 class="text-white fw-bolder h4 mb-3">Lorem ipsum</h2>
+                        <p class="text-white mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="d-flex">
+
+                      <!-- Saying #2 -->
+                      <div class="me-4">
+                        <img class="img" src="https://dummyimage.com/50x50/343a40/6c757d" alt="..." width="50" height="50" />
+                      </div>
+                      <div>
+                        <h2 class="text-white fw-bolder h4 mb-3">Lorem ipsum</h2>
+                        <p class="text-white mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team cards -->
+    <div class="bg-light-dark py-3 mb-4">
+      <div class="container py-5">
+
+        <!-- Team header and quick insight into overall group -->
+        <div class="row mb-4">
+          <div class="col-lg-5">
+            <h2 class="display-4 text-white fw-bolder">Our team</h2>
+            <p class="font-italic text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </div>
+        </div>
+
+        <!-- All 5 people cards with image, name, and role -->
+        <div class="row text-center">
+
+          <div class="col-xl-4 col-sm-5 mb-4">
+            <div class="bg-dark rounded-4 shadow-sm py-4 px-4">
+              <img src="https://dummyimage.com/200x200/343a40/6c757d" alt="" width="200" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <h2 class="text-white fw-bolder mb-1">Jackson Frey</h2>
+              <span class="small text-uppercase text-light-white">Project Manager</span>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-5 mb-4">
+            <div class="bg-dark rounded-4 shadow-sm py-4 px-4">
+              <img src="https://dummyimage.com/200x200/343a40/6c757d" alt="" width="200" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <h2 class="text-white fw-bolder mb-1">Evan Patterson</h2>
+              <span class="small text-uppercase text-light-white">Technical Manager</span>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-5 mb-4">
+            <div class="bg-dark rounded-4 shadow-sm py-4 px-4">
+              <img src="https://dummyimage.com/200x200/343a40/6c757d" alt="" width="200" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <h2 class="text-white fw-bolder mb-1">Natalie Dureiko</h2>
+              <span class="small text-uppercase text-light-white">Developer</span>
+            </div>
+          </div>
+
+          <!-- offset the bottom two to look even -->
+          <div class="col-xl-2 col-sm-6 mb-0"></div>
+
+          <div class="col-xl-4 col-sm-5 mb-0">
+            <div class="bg-dark rounded-4 shadow-sm py-4 px-4">
+              <img src="https://dummyimage.com/200x200/343a40/6c757d" alt="" width="200" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <h2 class="text-white fw-bolder mb-1">Cameron Harris</h2>
+              <span class="small text-uppercase text-light-white">Developer</span>
+            </div>
+          </div>
+
+          <div class="col-xl-4 col-sm-5 mb-0">
+            <div class="bg-dark rounded-4 shadow-sm py-4 px-4">
+              <img src="https://dummyimage.com/200x200/343a40/6c757d" alt="" width="200" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+              <h2 class="text-white fw-bolder mb-1">Henry Barcia</h2>
+              <span class="small text-uppercase text-light-white">Developer</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+
+    <!-- Copyright Footer --> 
+    <footer class="pb-4">
+      <div class="container text-center">
+        <p class="font-italic text-white mb-0">&copy; Copyrights Reel Software All rights reserved.</p>
+      </div>
+    </footer>
 
   </body>
 </html>
