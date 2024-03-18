@@ -101,11 +101,13 @@ app.post('/search', (req, res) => {
             if ("title" in results[i]) {
                 let name = results[i]['title']
                 let date = results[i]['release_date'].slice(0, 4)
+                let rating = results[i]['vote_average']
                 let desc = results[i]['overview']
                 let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
                 display.push({
                     "name" : name,
                     "date" : date,
+                    "rating" : rating,
                     "desc" : desc,
                     "img"  : img
                 });
@@ -114,11 +116,13 @@ app.post('/search', (req, res) => {
             else {
                 let name = results[i]['name'];
                 let date = results[i]['first_air_date'].slice(0,4)
+                let rating = results[i]['vote_average']
                 let desc = results[i]['overview']
                 let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
                 display.push({
                     "name" : name,
                     "date" : date,
+                    "rating" : rating,
                     "desc" : desc,
                     "img"  : img
                 });
