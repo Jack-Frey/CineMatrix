@@ -21,3 +21,7 @@ h1 {
 .text-light-white {
   color: #e5e5e5;
 }
+
+#myCarousel {
+  margin-top: 50px;
+}
