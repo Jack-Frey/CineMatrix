@@ -124,6 +124,11 @@ app.post('/search', (req, res) => {
                 });
             }
         }
+        
+        // Sort results by most recent to oldest release year
+        display.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        });
 
         res.render(path.join(__dirname, "../views/searchResults"), {results: display});
     })
