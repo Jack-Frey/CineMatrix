@@ -134,6 +134,14 @@ app.post('/search', (req, res) => {
     })
 })
 
+app.get("/movies", (req, res) => {
+    res.render(path.join(__dirname, "../views/movies"));
+})
+
+app.get("/shows", (req, res) => {
+    res.render(path.join(__dirname, "../views/shows"));
+})
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
