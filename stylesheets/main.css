@@ -25,3 +25,7 @@ h1 {
 #myCarousel {
   margin-top: 50px;
 }
+
+.border-white-5px {
+  border: 5px solid white;
+}
