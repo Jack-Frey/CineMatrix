@@ -9,6 +9,7 @@ app.set('views', path.join(__dirname, 'views'));
 hbs.registerHelper('get', (context, property) => context[property]);
 
 const {fetch_api} = require('../tools.js')
+const loginRoute = require('./login.js');
 
 const port = 3000
 app.use('/stylesheets', express.static(path.join(__dirname, '../stylesheets')));
@@ -73,6 +74,8 @@ app.get('/', (req, res) => {
 app.get("/about", (req, res) => {
     res.render(path.join(__dirname, "../views/about"));
 })
+
+app.use('/login', loginRoute);
 
 app.post('/search', (req, res) => {
     var contentName = req.body.textbox;
@@ -147,11 +150,15 @@ app.post('/search', (req, res) => {
 
 app.get("/movies", (req, res) => {
     res.render(path.join(__dirname, "../views/movies"));
-})
+});
 
 app.get("/shows", (req, res) => {
     res.render(path.join(__dirname, "../views/shows"));
-})
+});
+
+app.get("/login", (req, res) => {
+    res.render(path.join(__dirname, "../views/login"));
+});
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
