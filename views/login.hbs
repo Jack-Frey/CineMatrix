@@ -47,15 +47,30 @@
     </div>
     </nav>
     
-    <div>
-        <p style="color: Black"> Create Account </p>
-        <form method="post">
-            <input type="text" placeholder="Username" name="uname" required>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p style="color: Black"> Create Account </p>
+          <form action="/login/create" method="post">
+            <input type="text" placeholder="Username" name="createUsername" required>
             <br>
-            <input type="password" placeholder="Password" name="passw" required>
+            <input type="password" placeholder="Password" name="createPassword" required>
+            <br>
+            <button type="submit"> Create Account </button>
+          </form>
+        </div>
+
+        <div class="col">
+          <p style="color: Black"> Login </p>
+          <form action="/login" method="post">
+            <input type="text" placeholder="Username" name="loginUsername" required>
+            <br>
+            <input type="password" placeholder="Password" name="loginPassword" required>
             <br>
             <button type="submit"> Login </button>
-        </form>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

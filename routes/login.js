@@ -34,14 +34,61 @@ function createAccount(db, username, password) {
     });
 }
 
-router.post("/", (req, res) => {
-    const username = req.body['uname'];
-    const password = req.body['passw'];
+function checkForUser(db, username) {
+    return new Promise((resolve, reject) => {
+        db.all(
+            `SELECT username, password FROM accounts`,
+            [],
+            function (err, rows) {
+                if (err) {
+                    console.error(error.message);
+                    return reject(error.message);
+                }
+
+                rows.forEach((row) => {
+                    if (row.username == username) {
+                        return resolve(row.password);
+                    }
+                });
+
+                return resolve(false);
+            }
+        );
+    });
+}
+
+router.post("/create", (req, res) => {
+    const username = req.body['createUsername'];
+    const password = req.body['createPassword'];
+
+    console.log("Create Account request");
 
     (async() => {
         dbConnect().then(db => {
             createAccount(db, username, password).then(() => {
                 res.send("Created new account");
+            });
+        });
+    })();
+});
+
+router.post("/", (req, res) => {
+    const username = req.body['loginUsername'];
+    const password = req.body['loginPassword'];
+
+    console.log("Login request");
+    (async() => {
+        dbConnect().then(db => {
+            checkForUser(db, username).then((result) => {
+                if (result === false) {
+                    res.send("User not found");
+                } else {
+                    if (result == password) {
+                        res.send("Successfully logged in");
+                    } else {
+                        res.send("Incorrect password");
+                    }
+                }
             });
         });
     })();
