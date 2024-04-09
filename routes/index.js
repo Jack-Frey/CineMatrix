@@ -72,7 +72,12 @@ app.get('/', (req, res) => {
             display.push('https://image.tmdb.org/t/p/original/' + path);
         }
 
-        res.render(path.join(__dirname, '../views/index'), { images: display });
+        // Information for home page
+        res.render(path.join(__dirname, '../views/index'), { 
+            images: display,
+            loggedIn: req.session.loggedIn,
+            username: req.session.username,
+        });
     })    
 
 });
