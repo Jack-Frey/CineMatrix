@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const session = require("express-session");
 
 const sqlite3 = require("sqlite3").verbose();
 const filepath = "accounts.db";
@@ -65,8 +66,17 @@ router.post("/create", (req, res) => {
 
     (async() => {
         dbConnect().then(db => {
-            createAccount(db, username, password).then(() => {
-                res.send("Created new account");
+            checkForUser(db, username).then((found) => {
+                if (found === false) {
+                    createAccount(db, username, password).then(() => {
+                        console.log(`Created new account: ${username}`);
+                        req.session.loggedIn = true;
+                        req.session.username = username;
+                        res.redirect("/");
+                    });
+                } else {
+                    res.send("Username already exists");
+                }
             });
         });
     })();
@@ -84,7 +94,10 @@ router.post("/", (req, res) => {
                     res.send("User not found");
                 } else {
                     if (result == password) {
-                        res.send("Successfully logged in");
+                        console.log(`User ${username} logged in`);
+                        req.session.loggedIn = true;
+                        req.session.username = username;
+                        res.redirect("/");
                     } else {
                         res.send("Incorrect password");
                     }

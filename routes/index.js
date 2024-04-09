@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const bodyParser = require('body-parser') 
+const session = require('express-session')
 
 const hbs = require('hbs');
 app.set('view engine', 'hbs');
@@ -18,6 +19,11 @@ app.use('/images', express.static(path.join(__dirname, '../images')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
+}));
+app.use(session({
+    secret: "secret", // security thing that's probably important
+    resave: true,
+    saveUninitialized: true
 }));
 
 async function get_results(name, options) {
