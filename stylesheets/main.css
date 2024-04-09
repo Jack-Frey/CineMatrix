@@ -29,3 +29,11 @@ h1 {
 .border-white-5px {
   border: 5px solid white;
 }
+
+#logo {
+  border-radius: 20px;
+}
+
+.icon-large {
+  font-size: 2rem;
+}
