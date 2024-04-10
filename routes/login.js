@@ -5,7 +5,6 @@ const session = require("express-session");
 const sqlite3 = require("sqlite3").verbose();
 const filepath = "accounts.db";
 
-
 /*
 Opens the accounts.db file.
 Needs to be called before any reading/writing.
@@ -55,8 +54,8 @@ function checkForUser(db, username) {
             [],
             function (err, rows) {
                 if (err) {
-                    console.error(error.message);
-                    return reject(error.message);
+                    console.error(err.message);
+                    return reject(err.message);
                 }
 
                 rows.forEach((row) => {

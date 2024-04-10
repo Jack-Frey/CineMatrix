@@ -4,13 +4,29 @@ const path = require('path')
 const bodyParser = require('body-parser') 
 const session = require('express-session')
 
+/*
 const hbs = require('hbs');
+hbs.registerPartials(__dirname + '/views/partials', (err) => {
+    if (err) console.error(err);
+});
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../views'));
 hbs.registerHelper('get', (context, property) => context[property]);
+*/
+
+const exphbs = require("express-handlebars");
+app.engine('handlebars', exphbs({
+    extname: 'hbs',
+    defaultLayout: 'index',
+    layoutsDir: path.join(__dirname, "../views"),
+    partialsDir : ""
+}));
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, "../views"));
 
 const {fetch_api} = require('../tools.js')
 const loginRoute = require('./login.js');
+const userRoute = require('./user.js');
 
 const port = 3000
 app.use('/stylesheets', express.static(path.join(__dirname, '../stylesheets')));
@@ -73,7 +89,7 @@ app.get('/', (req, res) => {
         }
 
         // Information for home page
-        res.render(path.join(__dirname, '../views/index'), { 
+        res.render('index.hbs', { 
             images: display,
             loggedIn: req.session.loggedIn,
             username: req.session.username,
@@ -83,10 +99,11 @@ app.get('/', (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-    res.render(path.join(__dirname, "../views/about"));
+    res.render("about.hbs");
 })
 
 app.use('/login', loginRoute);
+app.use('/user', userRoute);
 
 app.post('/search', (req, res) => {
     var contentName = req.body.textbox;
@@ -155,20 +172,20 @@ app.post('/search', (req, res) => {
             }
         });
 
-        res.render(path.join(__dirname, "../views/searchResults"), {results: display});
+        res.render("searchResults.hbs", {results: display});
     })
 })
 
 app.get("/movies", (req, res) => {
-    res.render(path.join(__dirname, "../views/movies"));
+    res.render("movies.hbs");
 });
 
 app.get("/shows", (req, res) => {
-    res.render(path.join(__dirname, "../views/shows"));
+    res.render("shows.hbs");
 });
 
 app.get("/login", (req, res) => {
-    res.render(path.join(__dirname, "../views/login"));
+    res.render("login.hbs");
 });
 
 app.listen(port, () => {
