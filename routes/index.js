@@ -135,6 +135,10 @@ app.post('/search', (req, res) => {
                 let rating = results[i]['vote_average']
                 let desc = results[i]['overview']
                 let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
+                let posterPath = results[i]['poster_path'];
+                if (posterPath == null) {
+                    img = "/images/noPoster.jpg";
+                }
                 display.push({
                     "name" : name,
                     "date" : date,
@@ -150,6 +154,10 @@ app.post('/search', (req, res) => {
                 let rating = results[i]['vote_average']
                 let desc = results[i]['overview']
                 let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
+                let posterPath = results[i]['poster_path'];
+                if (posterPath == null) {
+                    img = "/images/noPoster.jpg"
+                }
                 display.push({
                     "name" : name,
                     "date" : date,
