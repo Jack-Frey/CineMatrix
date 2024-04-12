@@ -54,8 +54,11 @@ async function checkIfFavorite(db, id, type, username) {
 
     //const db = await dbConnect();
     var favorites = await getFavorites(db, username);
+    console.log("getFavorites result: ");
+    console.log(favorites + "\n");
 
     for (let row of favorites) {
+        console.log(`ID: ${row.id}, Type: ${row.type}`);
         if (row.id == id && row.user == username && row.type == type) {
             return true;
         }
@@ -96,17 +99,6 @@ router.post("/", (req, res) => {
     }
 
     var display = [];
-    /*
-    format for item object
-    {
-        "name" : name,
-        "date" : release_date/first_air_date,
-        "desc" : overview
-        "img"  : poster_path
-        "id"   : movie/show ID on API
-        "type" : 0=movie, 1=show
-    }
-    */
     get_results(contentName, options).then(results => {
         for (let i = 0; i < results.length; i++) {
             // Checks if current item is a movie
