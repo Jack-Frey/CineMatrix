@@ -51,35 +51,42 @@
         </ul>
     </div>
     </nav>
-    
+
     <div class="container h-100 mt-5 mb-3">
       <div class="row justify-content-sm-center h-100">
         <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
           <div class="card bg-dark rounded-3 shadow-lg">
             <div class="card-body px-5">
 
-              <form action="/login" method="post">
+              <form action="/login/create" method="post">
 
-                <p class="h1 display-5 text-white fw-bolder mb-2 mt-1">Sign in</p>
-                <p class="text-light-white mb-4">Stay updated with the current cinema</p>
-
-                <div class="input-group input-group-lg mb-4">
-                  <input type="text" class="form-control" id="loginUsername" name="loginUsername" placeholder="Username" required>
-                </div>
+                <p class="h1 display-5 text-white fw-bolder mb-2 mt-1">Sign up</p>
+                <p class="text-light-white mb-4">Create a free account now</p>
 
                 <div class="input-group input-group-lg mb-4">
-                  <input type="password" class="form-control form-control-lg rounded-right" id="loginPassword" name="loginPassword" placeholder="Password" required>      
+                  <input type="text" class="form-control" id="createUsername" name="createUsername" placeholder="Username" required>
                 </div>
+
+                <div class="input-group input-group-lg mb-3">
+                  <input type="password" class="form-control form-control-lg rounded-right" id="createPassword" name="createPassword" placeholder="Password" required>      
+                </div>
+
+                <p class="small text-center text-light-white mb-3">
+                    By clicking Agree & Join, you agree to the CineMatrix 
+                    <a href="/about" class="link-info link-underline-opacity-25 link-underline-opacity-100-hover link-offset-1">User Agreement</a>
+                    and 
+                    <a href="/about" class="link-info link-underline-opacity-25 link-underline-opacity-100-hover link-offset-1">Privacy Policy</a>.
+                </p>
 
                 <div class="d-grid rounded-5 mb-4">
-                  <button type="submit" class="btn btn-block btn-lg btn-primary">Sign in</button>
+                  <button type="submit" class="btn btn-block btn-lg btn-primary">Agree & Join</button>
                 </div>
-
-                <p class="my-3 text-white text-center">
-                  New to CineMatrix? <a href="/signup" class="link-info link-underline-opacity-25 link-underline-opacity-100-hover link-offset-1">Join now</a>
-                </p>
                 
               </form>
+
+              <p class="my-3 text-white text-center">
+                Already have an account? <a href="/login" class="link-info link-underline-opacity-25 link-underline-opacity-100-hover link-offset-1">Sign In</a>
+              </p>
             </div>
           </div>
         </div>

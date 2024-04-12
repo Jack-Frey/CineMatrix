@@ -103,6 +103,7 @@ app.get("/about", (req, res) => {
 })
 
 app.use('/login', loginRoute);
+app.use('/signup', loginRoute);
 app.use('/user', userRoute);
 
 app.post('/search', (req, res) => {
@@ -194,6 +195,10 @@ app.get("/shows", (req, res) => {
 
 app.get("/login", (req, res) => {
     res.render("login.hbs");
+});
+
+app.get("/signup", (req, res) => {
+    res.render("signup.hbs");
 });
 
 app.listen(port, () => {
