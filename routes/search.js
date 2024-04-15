@@ -6,7 +6,6 @@ const filepath = "accounts.db";
 
 const {fetch_api} = require("../tools.js"); 
 
-
 function dbConnect() {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(filepath, (error) => {
@@ -23,7 +22,7 @@ function dbConnect() {
 function getFavorites(db, username) {
     return new Promise((resolve, reject) => {
         db.all(
-            `SELECT item_id, type
+            `SELECT item_id, type, user
             FROM favorites
             WHERE favorites.user = (?)`,
             [username],
@@ -54,12 +53,9 @@ async function checkIfFavorite(db, id, type, username) {
 
     //const db = await dbConnect();
     var favorites = await getFavorites(db, username);
-    console.log("getFavorites result: ");
-    console.log(favorites + "\n");
 
     for (let row of favorites) {
-        console.log(`ID: ${row.id}, Type: ${row.type}`);
-        if (row.id == id && row.user == username && row.type == type) {
+        if (row.item_id === id && row.user === username && row.type === type) {
             return true;
         }
     }
@@ -113,7 +109,7 @@ router.post("/", (req, res) => {
                 }
                 let id = results[i]['id']
                 let type = 0
-                let isFavorite = true;
+                let isFavorite = false;
 
                 // This def won't work
                 display.push({
@@ -182,7 +178,6 @@ router.post("/", (req, res) => {
                 results: display,
                 loggedIn: req.session.loggedIn,
                 username: req.session.username,
-                test: true,
             });
         })();
     });

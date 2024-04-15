@@ -27,12 +27,14 @@ app.set('views', path.join(__dirname, "../views"));
 const {fetch_api, getImages} = require('../tools.js')
 const loginRoute = require('./login.js');
 const userRoute = require('./user.js');
-const searchRoute = require("./search.js");
+const searchRoute = require('./search.js');
+const favoriteRoute = require('./favorite.js');
 
 const port = 3000
 app.use('/stylesheets', express.static(path.join(__dirname, '../stylesheets')));
 app.use('/routes', express.static(path.join(__dirname, 'routes')));
 app.use('/images', express.static(path.join(__dirname, '../images')));
+app.use('/scripts', express.static(path.join(__dirname, '../scripts')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -75,8 +77,10 @@ app.get("/about", (req, res) => {
 })
 
 app.use('/login', loginRoute);
+app.use('/signup', loginRoute);
 app.use('/user', userRoute);
 app.use('/search', searchRoute);
+app.use('/favorite', favoriteRoute);
 
 app.get("/movies", (req, res) => {
     res.render("movies.hbs");
@@ -88,6 +92,10 @@ app.get("/shows", (req, res) => {
 
 app.get("/login", (req, res) => {
     res.render("login.hbs");
+});
+
+app.get("/signup", (req, res) => {
+    res.render("signup.hbs");
 });
 
 app.listen(port, () => {
