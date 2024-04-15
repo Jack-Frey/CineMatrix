@@ -13,7 +13,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet">
-    <script src="/scripts/favorite.js"></script>
+
+    <script>
+      function changeImage(image) {
+        console.log(image.src);
+        if (image.src == "http://localhost:3000/images/blank_star.png") {
+          image.src = "../images/filled_star.png";
+        } else {
+          image.src = "../images/blank_star.png";
+        }
+      }
+    </script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -54,26 +64,32 @@
     </nav>
     
     <div class="container">
+      <!-- This looks stupid but I promise it's necessary -->
+      <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+      
       {{#each results}}
       <div class="row">
-        <div class="col-sm">
+        <div class="col-lg">
           <img src="{{this.img}}" height="180" style="float:left; padding: 10px"> 
           <p style="color: white; font-size: 40px">{{this.name}} ({{this.date}})</p>
           <p style="color: white"> {{this.desc}} </p>
-
-          <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
-
+        </div>
+        <div class="col-sm-2">
           {{#if ../loggedIn}}
             {{#if this.favorite}}
-              <form action="/favorite/remove" method="post">
-                <button> Unfavorite </button>
+              <form action="/favorite/remove" method="post" target="hiddenFrame">
+                <button class="image-button">
+                  <img src="../images/filled_star.png" onclick="changeImage(this);" style="float:right" width="28px">
+                </button>
                 <input id="id" name="id" value="{{this.id}}" type="hidden" target="hiddenFrame">
                 <input id="type" name="type" value="{{this.type}}" type="hidden">
                 <input id="username" name="username" value="{{../username}}" type="hidden">
               </form>
             {{else}}
               <form action="/favorite/add" method="post" target="hiddenFrame">
-                <button> Favorite </button>
+                <button class="image-button"> 
+                  <img src="../images/blank_star.png" onclick="changeImage(this);" style="float:right" width="28px">
+                </button>
                 <input id="id" name="id" value="{{this.id}}" type="hidden">
                 <input id="type" name="type" value="{{this.type}}" type="hidden">
                 <input id="username" name="username" value="{{../username}}" type="hidden">

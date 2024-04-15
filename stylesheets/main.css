@@ -37,3 +37,11 @@ h1 {
 .icon-large {
   font-size: 2rem;
 }
+
+.image-button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+}

@@ -45,7 +45,7 @@ router.post("/add", (req, res) => {
 
     addFavorite(id, type, username);
 
-    res.redirect('back');
+    res.end();
 });
 
 router.post("/remove", (req, res) => {
@@ -55,7 +55,7 @@ router.post("/remove", (req, res) => {
 
     removeFavorite(id, type, username);
 
-    res.redirect('back'); 
+    res.end(); 
 });
 
 module.exports = router;
