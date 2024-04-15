@@ -126,7 +126,7 @@ router.get("/:username", (req, res) => {
             username: user,
             favorites: userFavorites
         });
-    })();;
+    })();
 });
 
 module.exports = router;

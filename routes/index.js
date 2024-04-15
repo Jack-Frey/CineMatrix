@@ -24,14 +24,17 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, "../views"));
 
-const {fetch_api} = require('../tools.js')
+const {fetch_api, getImages} = require('../tools.js')
 const loginRoute = require('./login.js');
 const userRoute = require('./user.js');
+const searchRoute = require('./search.js');
+const favoriteRoute = require('./favorite.js');
 
 const port = 3000
 app.use('/stylesheets', express.static(path.join(__dirname, '../stylesheets')));
 app.use('/routes', express.static(path.join(__dirname, 'routes')));
 app.use('/images', express.static(path.join(__dirname, '../images')));
+app.use('/scripts', express.static(path.join(__dirname, '../scripts')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -42,36 +45,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-async function get_results(name, options) {
-    var urlMovies = 'https://api.themoviedb.org/3/search/movie?query='
-        + name + '&include_adult=false&language=en-US&page=1'
-    var urlShows = 'https://api.themoviedb.org/3/search/tv?query='
-        + name + '&include_adult=false&language=en-US&page=1'    
-
-    var results = []
-
-    const movieResults = await fetch_api(urlMovies, options);
-    const TVResults = await fetch_api(urlShows, options);
-
-    for (let index in movieResults) {
-        results.push(movieResults[index])
-    }
-    for (let index in TVResults) {
-        results.push(TVResults[index])
-    }
-
-    return results
-}
-
-async function getImages(options) {
-
-    const results = await fetch_api('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options);
-    
-    return results;
-}
-
 app.get('/', (req, res) => {
-
     var options = {
         method: 'GET',
         headers: {
@@ -105,85 +79,8 @@ app.get("/about", (req, res) => {
 app.use('/login', loginRoute);
 app.use('/signup', loginRoute);
 app.use('/user', userRoute);
-
-app.post('/search', (req, res) => {
-    var contentName = req.body.textbox;
-
-    var options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NjAyMGE3NDdlOThkYWFkZTk3YmZhNGJjMGJmYzI3MiIsInN1YiI6IjY1ZTBmNzliYTM5ZDBiMDE2MzA3ZDhmZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w7gWjNh2OHWhiq5Uh_JhhKG78c2ktBEimG8Vm89REXo'
-        }
-    }
-
-    var display = [];
-    /*
-    format for item object
-    {
-        "name" : name,
-        "date" : release_date/first_air_date,
-        "desc" : overview
-        "img"  : poster_path
-    }
-    */
-    get_results(contentName, options).then(results => {
-        for (let i = 0; i < results.length; i++) {
-            // Checks if current item is a movie
-            if ("title" in results[i]) {
-                let name = results[i]['title']
-                let date = results[i]['release_date'].slice(0, 4)
-                let rating = results[i]['vote_average']
-                let desc = results[i]['overview']
-                let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
-                let posterPath = results[i]['poster_path'];
-                if (posterPath == null) {
-                    img = "/images/noPoster.jpg";
-                }
-                display.push({
-                    "name" : name,
-                    "date" : date,
-                    "rating" : rating,
-                    "desc" : desc,
-                    "img"  : img
-                });
-            } 
-            // Otherwise it's a TV show
-            else {
-                let name = results[i]['name'];
-                let date = results[i]['first_air_date'].slice(0,4)
-                let rating = results[i]['vote_average']
-                let desc = results[i]['overview']
-                let img  = "https://image.tmdb.org/t/p/original/" + results[i]['poster_path']
-                let posterPath = results[i]['poster_path'];
-                if (posterPath == null) {
-                    img = "/images/noPoster.jpg"
-                }
-                display.push({
-                    "name" : name,
-                    "date" : date,
-                    "rating" : rating,
-                    "desc" : desc,
-                    "img"  : img
-                });
-            }
-        }
-
-        // Order search results by highest to lowest rating and then by newest to oldest release date.
-        display.sort((a, b) => {
-            // Compare by rating first
-            const ratingComparison = b.rating - a.rating;
-            if (ratingComparison !== 0) {
-                return ratingComparison; // If ratings are different, return the comparison result
-            } else {
-                // If ratings are the same, compare by year
-                return new Date(b.date) - new Date(a.date);
-            }
-        });
-
-        res.render("searchResults.hbs", {results: display});
-    })
-})
+app.use('/search', searchRoute);
+app.use('/favorite', favoriteRoute);
 
 app.get("/movies", (req, res) => {
     res.render("movies.hbs");
