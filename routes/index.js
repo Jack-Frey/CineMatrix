@@ -74,7 +74,10 @@ app.get('/', (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-    res.render("about.hbs");
+    res.render("about.hbs", { 
+        loggedIn: req.session.loggedIn,
+        username: req.session.username,
+    });
 })
 
 app.use('/login', loginRoute);
@@ -84,19 +87,31 @@ app.use('/search', searchRoute);
 app.use('/favorite', favoriteRoute);
 
 app.get("/movies", (req, res) => {
-    res.render("movies.hbs");
+    res.render("movies.hbs", { 
+        loggedIn: req.session.loggedIn,
+        username: req.session.username,
+    });
 });
 
 app.get("/shows", (req, res) => {
-    res.render("shows.hbs");
+    res.render("shows.hbs", { 
+        loggedIn: req.session.loggedIn,
+        username: req.session.username,
+    });
 });
 
 app.get("/login", (req, res) => {
-    res.render("login.hbs");
+    res.render("login.hbs", { 
+        loggedIn: req.session.loggedIn,
+        username: req.session.username,
+    });
 });
 
 app.get("/signup", (req, res) => {
-    res.render("signup.hbs");
+    res.render("signup.hbs", { 
+        loggedIn: req.session.loggedIn,
+        username: req.session.username,
+    });
 });
 
 app.listen(port, () => {

@@ -56,9 +56,16 @@
         </ul>
         </div>
         <ul class="navbar-nav">
+          {{#if username}}
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/user/{{ username }}">{{ username }}   <i class="bi bi-person-circle icon-large"></i></a>
+            </li>
+          {{else}}
+
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/login"><i class="bi bi-person-circle icon-large"></i></a>
             </li>
+          {{/if}}
         </ul>
     </div>
     </nav>
