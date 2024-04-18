@@ -63,6 +63,7 @@ app.get('/', (req, res) => {
         }
 
         // Information for home page
+        console.log(req.session.username);
         res.render('index.hbs', { 
             images: display,
             loggedIn: req.session.loggedIn,
