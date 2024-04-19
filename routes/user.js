@@ -119,7 +119,7 @@ router.get("/:username", (req, res) => {
     (async() => {
         var userFavorites = await favoritesApiFetch(user);
         if (userFavorites == false) {
-            res.send("User does not exist");
+            console.log(`${user} has no favorites`);
         }
 
         res.render("user.hbs", {
