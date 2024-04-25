@@ -4,16 +4,6 @@ const path = require('path')
 const bodyParser = require('body-parser') 
 const session = require('express-session')
 
-/*
-const hbs = require('hbs');
-hbs.registerPartials(__dirname + '/views/partials', (err) => {
-    if (err) console.error(err);
-});
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, '../views'));
-hbs.registerHelper('get', (context, property) => context[property]);
-*/
-
 const exphbs = require("express-handlebars");
 app.engine('handlebars', exphbs({
     extname: 'hbs',
@@ -39,13 +29,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(session({
     secret: "secret", // security thing that's probably important
     resave: true,
     saveUninitialized: true
 }));
 
+// Render home page
 app.get('/', (req, res) => {
+    // HTTP GET options for API fetch
     var options = {
         method: 'GET',
         headers: {
@@ -54,16 +47,20 @@ app.get('/', (req, res) => {
         }
     }
 
+    // Put movie posters in this array
     var display = [];
 
+    // Get images for trending movie carousel
     getImages(options).then(results => {
         for (let i = 0; i < results.length; i++) {
+            // Extract image URL from result
             let path = results[i]['poster_path']
+
+            // Add to array
             display.push('https://image.tmdb.org/t/p/original/' + path);
         }
 
         // Information for home page
-        console.log(req.session.username);
         res.render('index.hbs', { 
             images: display,
             loggedIn: req.session.loggedIn,
@@ -73,6 +70,7 @@ app.get('/', (req, res) => {
 
 });
 
+// Render about page
 app.get("/about", (req, res) => {
     res.render("about.hbs", { 
         loggedIn: req.session.loggedIn,
@@ -80,12 +78,15 @@ app.get("/about", (req, res) => {
     });
 })
 
+// Handle other requests
+// These are located in their own files
 app.use('/login', loginRoute);
 app.use('/signup', loginRoute);
 app.use('/user', userRoute);
 app.use('/search', searchRoute);
 app.use('/favorite', favoriteRoute);
 
+// Movies tab
 app.get("/movies", (req, res) => {
     res.render("movies.hbs", { 
         loggedIn: req.session.loggedIn,
@@ -93,6 +94,7 @@ app.get("/movies", (req, res) => {
     });
 });
 
+// Shows tab
 app.get("/shows", (req, res) => {
     res.render("shows.hbs", { 
         loggedIn: req.session.loggedIn,
@@ -100,6 +102,7 @@ app.get("/shows", (req, res) => {
     });
 });
 
+// Login page
 app.get("/login", (req, res) => {
     res.render("login.hbs", { 
         loggedIn: req.session.loggedIn,
@@ -107,6 +110,7 @@ app.get("/login", (req, res) => {
     });
 });
 
+// Create User page
 app.get("/signup", (req, res) => {
     res.render("signup.hbs", { 
         loggedIn: req.session.loggedIn,
@@ -114,6 +118,7 @@ app.get("/signup", (req, res) => {
     });
 });
 
+// Launch app
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })

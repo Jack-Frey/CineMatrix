@@ -6,6 +6,7 @@ const filepath = "accounts.db";
 
 const {fetch_api} = require("../tools.js"); 
 
+// Connect to the database file
 function dbConnect() {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(filepath, (error) => {
@@ -13,12 +14,12 @@ function dbConnect() {
                 console.error(error);
                 return reject(error.message);
             }
-            console.log("Connected to Database");
             return resolve(db);
         });
     });
 }
 
+// Get array of favorites from the database
 function getFavorites(db, username) {
     return new Promise((resolve, reject) => {
         db.all(
@@ -32,17 +33,19 @@ function getFavorites(db, username) {
                     return reject(err.message);
                 }
 
-                var movie_list = [];
+                var list = [];
                 rows.forEach(row => {
-                    movie_list.push(row);
+                    list.push(row);
                 });
-                return resolve(movie_list);
+                return resolve(list);
             }
         )
     });
 }
 
+// Checks if a given movie/show is in the user's favorites list
 async function checkIfFavorite(db, id, type, username) {
+    // HTTP GET options for API call
     var options = {
         method: 'GET',
         headers: {
@@ -51,9 +54,10 @@ async function checkIfFavorite(db, id, type, username) {
         }
     }
 
-    //const db = await dbConnect();
+    // Get favorites list
     var favorites = await getFavorites(db, username);
 
+    // Iterate over favorites list to find given item
     for (let row of favorites) {
         if (row.item_id === id && row.user === username && row.type === type) {
             return true;
@@ -62,17 +66,22 @@ async function checkIfFavorite(db, id, type, username) {
     return false;
 }
 
+// Get search results from the TMDB API
 async function get_results(name, options) {
+    // Different URLs for each request type
     var urlMovies = 'https://api.themoviedb.org/3/search/movie?query='
         + name + '&include_adult=false&language=en-US&page=1'
     var urlShows = 'https://api.themoviedb.org/3/search/tv?query='
         + name + '&include_adult=false&language=en-US&page=1'    
 
+    // Store search results in here
     var results = []
 
+    // Make API call for each content type
     const movieResults = await fetch_api(urlMovies, options);
     const TVResults = await fetch_api(urlShows, options);
 
+    // Add results into array
     for (let index in movieResults) {
         results.push(movieResults[index])
     }
@@ -83,9 +92,11 @@ async function get_results(name, options) {
     return results
 }
 
+// Handle search post request
 router.post("/", (req, res) => {
     var contentName = req.body.textbox;
 
+    // HTTP GET options for API call
     var options = {
         method: 'GET',
         headers: {
@@ -94,7 +105,10 @@ router.post("/", (req, res) => {
         }
     }
 
+    // Array for our final, formatted results to display on search page
     var display = [];
+
+    // Get search results
     get_results(contentName, options).then(results => {
         for (let i = 0; i < results.length; i++) {
             // Checks if current item is a movie
@@ -163,8 +177,12 @@ router.post("/", (req, res) => {
         });
 
         (async() => {
+            // Connect to database
             var db = await dbConnect();
 
+            // If user if logged in, check if each movie/show displayed is
+            // on their favorites list. This changes what kind of star is 
+            // displayed next to the search result.   
             if (req.session.loggedIn) {
                 for (let item of display) {
                     if (await checkIfFavorite(db, 
@@ -174,6 +192,7 @@ router.post("/", (req, res) => {
                 }
             }
 
+            // Render page
             res.render("searchResults.hbs", {
                 results: display,
                 loggedIn: req.session.loggedIn,

@@ -16,7 +16,6 @@ function dbConnect() {
                 console.error(error.message);
                 return reject(error.message);
             }
-            console.log("Connected to Database");
             return resolve(db);
         });
     });
@@ -35,7 +34,6 @@ function createAccount(db, username, password) {
                     console.error(error.message);
                     return reject(error.message);
                 }
-                console.log(`Created new account with ID: ${this.lastID}`);
                 return resolve();
             }
         );
@@ -76,8 +74,6 @@ router.post("/create", (req, res) => {
     const username = req.body['createUsername'];
     const password = req.body['createPassword'];
 
-    console.log("Create Account request");
-
     /*
         1. Connect to database
         2. Checks if an account with username already exists
@@ -89,7 +85,6 @@ router.post("/create", (req, res) => {
             checkForUser(db, username).then((found) => {
                 if (found === false) {
                     createAccount(db, username, password).then(() => {
-                        console.log(`Created new account: ${username}`);
                         req.session.loggedIn = true;
                         req.session.username = username;
                         res.redirect("/");
@@ -109,8 +104,6 @@ router.post("/", (req, res) => {
     const username = req.body['loginUsername'];
     const password = req.body['loginPassword'];
 
-    console.log("Login request");
-
     /*
         1. Connect to database
         2. Check if account exists
@@ -126,7 +119,6 @@ router.post("/", (req, res) => {
                     res.send("User not found");
                 } else {
                     if (result == password) {
-                        console.log(`User ${username} logged in`);
                         req.session.loggedIn = true;
                         req.session.username = username;
                         res.redirect("/");

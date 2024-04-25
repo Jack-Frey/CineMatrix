@@ -13,19 +13,22 @@ async function fetch_api(url, options) {
     return data; // This is the different line
 }
 
-function dbConnect() {
+// Connect to database
+function dbConnect() { 
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(filepath, (error) => {
+            // Problem openning database file
             if (error) {
                 console.error(error);
                 return reject(error.message);
             }
-            console.log("Connected to Database");
+            // Return database object
             return resolve(db);
         });
     });
 }
 
+// Checks if user is registered on the database
 function findUser(db, username) {
     return new Promise((resolve, reject) => {
         db.all(
@@ -37,6 +40,8 @@ function findUser(db, username) {
                     return reject(err.message);
                 }
 
+                // Iterate over each entry in accounts table
+                // Return true if username is found
                 rows.forEach(row => {
                     if (row.username == username) {
                         return resolve(true);
@@ -48,6 +53,7 @@ function findUser(db, username) {
     });
 }
 
+// Returns an array of favorite movies/show for a given user
 function getFavorites(db, username) {
     return new Promise((resolve, reject) => {
         db.all(
@@ -61,17 +67,20 @@ function getFavorites(db, username) {
                     return reject(err.message);
                 }
 
-                var movie_list = [];
+                var list = [];
+                // Add each entry into the array
                 rows.forEach(row => {
-                    movie_list.push(row);
+                    list.push(row);
                 });
-                return resolve(movie_list);
+                return resolve(list);
             }
         )
     });
 }
 
+// Get information about each favorited item in user favorite's list
 async function favoritesApiFetch(username) {
+    // HTTP GET options for API call 
     var options = {
         method: 'GET',
         headers: {
@@ -80,12 +89,20 @@ async function favoritesApiFetch(username) {
         }
     }
 
+    // Connect to database
     const db = await dbConnect();
+
+    // Check if user exists 
     if (await findUser(db, username)) {
+        // Get favorites from database
         var results = await getFavorites(db, username);
         var favorites = [];
 
+        // Get information about each entry from TMDB database
         for (let row of results) {
+            // Each entry has a 'type' attribute to distinguish between movies and shows
+            // This is because we need a different API call for each type
+
             // Movie
             if (row.type == 0) {
                 var url = `https://api.themoviedb.org/3/movie/${row.item_id}?language=en-US`
@@ -112,10 +129,12 @@ async function favoritesApiFetch(username) {
     }
 }
 
+// Returns user page for the specified user
+// Usage: /user/Jackson
 router.get("/:username", (req, res) => {
     const user = req.params.username;
-    console.log(`Rendering user page for ${user}`);
 
+    // Render page with their favorites
     (async() => {
         var userFavorites = await favoritesApiFetch(user);
         if (userFavorites == false) {
