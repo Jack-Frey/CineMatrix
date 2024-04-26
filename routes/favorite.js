@@ -20,9 +20,9 @@ function dbConnect() {
 async function addFavorite(id, type, user) {
     // Connect to database
     const db = await dbConnect();
-    d
+    
     // Insert id, type, and username into table
-    b.all(
+    db.all(
         `INSERT INTO favorites (item_id, type, user) VALUES (?, ?, ?)`,
         [id, type, user],
         function (error) {

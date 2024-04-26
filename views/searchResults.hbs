@@ -17,10 +17,10 @@
     <script>
       function changeImage(image) {
         console.log(image.src);
-        if (image.src == "http://localhost:3000/images/blank_star.png") {
+        if (image.src == "http://localhost:3000/images/blank_star_white.png") {
           image.src = "../images/filled_star.png";
         } else {
-          image.src = "../images/blank_star.png";
+          image.src = "../images/blank_star_white.png";
         }
       }
     </script>
@@ -70,7 +70,7 @@
     </div>
     </nav>
     
-    <div class="container">
+    <div class="container mt-2">
       <!-- This looks stupid but I promise it's necessary -->
       <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
       
@@ -81,7 +81,7 @@
           <p style="color: white; font-size: 40px">{{this.name}} ({{this.date}})</p>
           <p style="color: white"> {{this.desc}} </p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 mt-2">
           {{#if ../loggedIn}}
             {{#if this.favorite}}
               <form action="/favorite/remove" method="post" target="hiddenFrame">
@@ -95,7 +95,7 @@
             {{else}}
               <form action="/favorite/add" method="post" target="hiddenFrame">
                 <button class="image-button"> 
-                  <img src="../images/blank_star.png" onclick="changeImage(this);" style="float:right" width="28px">
+                  <img src="../images/blank_star_white.png" onclick="changeImage(this);" style="float:right" width="28px">
                 </button>
                 <input id="id" name="id" value="{{this.id}}" type="hidden">
                 <input id="type" name="type" value="{{this.type}}" type="hidden">
