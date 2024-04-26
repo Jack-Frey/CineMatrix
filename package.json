@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Jack-Frey/CineMatrix#readme",
   "dependencies": {
     "axios": "^0.26.1",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.3",
     "cookie-parser": "^1.4.5",

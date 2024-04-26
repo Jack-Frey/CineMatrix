@@ -4,6 +4,9 @@ const router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const filepath = "accounts.db";
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10; // This is kinda arbitrary
+
 /*
 Opens the accounts.db file.
 Needs to be called before any reading/writing.
@@ -84,11 +87,16 @@ router.post("/create", (req, res) => {
         dbConnect().then(db => {
             checkForUser(db, username).then((found) => {
                 if (found === false) {
-                    createAccount(db, username, password).then(() => {
-                        req.session.loggedIn = true;
-                        req.session.username = username;
-                        res.redirect("/");
-                    });
+                    // Hash password for security
+                    bcrypt
+                        .hash(password, saltRounds)
+                        .then(hash => {
+                            createAccount(db, username, hash).then(() => {
+                                req.session.loggedIn = true;
+                                req.session.username = username;
+                                res.redirect("/");
+                            });
+                        })
                 } else {
                     res.send("Username already exists");
                 }
@@ -118,6 +126,18 @@ router.post("/", (req, res) => {
                 if (result === false) {
                     res.send("User not found");
                 } else {
+                    bcrypt
+                        .compare(password, result)
+                        .then(result => {
+                            if (result) {
+                                req.session.loggedIn = true;
+                                req.session.username = username;
+                                res.redirect("/");
+                            } else {
+                                res.send("Incorrect Password");
+                            }
+                        });
+                    /*
                     if (result == password) {
                         req.session.loggedIn = true;
                         req.session.username = username;
@@ -125,6 +145,7 @@ router.post("/", (req, res) => {
                     } else {
                         res.send("Incorrect password");
                     }
+                    */
                 }
             });
         });
