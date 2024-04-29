@@ -125,7 +125,6 @@ router.post("/", (req, res) => {
                 let type = 0
                 let isFavorite = false;
 
-                // This def won't work
                 display.push({
                     "name" : name,
                     "date" : date,

@@ -19,6 +19,7 @@ const loginRoute = require('./login.js');
 const userRoute = require('./user.js');
 const searchRoute = require('./search.js');
 const favoriteRoute = require('./favorite.js');
+const moviesRoute = require('./movies.js');
 
 const port = 3000
 app.use('/stylesheets', express.static(path.join(__dirname, '../stylesheets')));
@@ -85,14 +86,7 @@ app.use('/signup', loginRoute);
 app.use('/user', userRoute);
 app.use('/search', searchRoute);
 app.use('/favorite', favoriteRoute);
-
-// Movies tab
-app.get("/movies", (req, res) => {
-    res.render("movies.hbs", { 
-        loggedIn: req.session.loggedIn,
-        username: req.session.username,
-    });
-});
+app.use("/movies", moviesRoute);
 
 // Shows tab
 app.get("/shows", (req, res) => {
