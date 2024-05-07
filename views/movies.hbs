@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto align-items-center">
             <li class="nav-item">
-                <a class="navbar-brand d-none d-md-block" href="#">
+                <a class="navbar-brand d-none d-md-block" href="/">
                 <img src="/images/logo.png" alt="Logo" id="logo" width="60">
                 </a>
             </li>
@@ -60,7 +60,7 @@
     </nav>
     
     <div class="container-fluid mt-2 py-2">
-      <h2> Now Playing </h2>
+      <h2 id="header"> Now Playing </h2>
       <div class="d-flex flex-row flex-nowrap overflow-auto">
         {{#each NowPlayingPosters}}
           <img src="{{this}}" height="250" style="padding: 10px">
@@ -69,7 +69,7 @@
       <br>
       <br>
 
-      <h2> Top Rated </h2>
+      <h2 id="header"> Top Rated </h2>
       <div class="d-flex flex-row flex-nowrap overflow-auto">
         {{#each TopRatedPosters}}
           <img src="{{this}}" height="250" style="padding: 10px">
@@ -78,7 +78,7 @@
       <br>
       <br>
 
-      <h2> Science Fiction </h2>
+      <h2 id="header"> Science Fiction </h2>
       <div class="d-flex flex-row flex-nowrap overflow-auto">
         {{#each ScifiPosters}}
           <img src="{{this}}" height="250" style="padding: 10px">
@@ -87,7 +87,7 @@
       <br>
       <br>
 
-      <h2> Action </h2>
+      <h2 id="header"> Action </h2>
       <div class="d-flex flex-row flex-nowrap overflow-auto">
         {{#each ActionPosters}}
           <img src="{{this}}" height="250" style="padding: 10px">
@@ -96,7 +96,7 @@
       <br>
       <br>
 
-      <h2> Horror </h2>
+      <h2 id="header"> Horror </h2>
       <div class="d-flex flex-row flex-nowrap overflow-auto">
         {{#each HorrorPosters}}
           <img src="{{this}}" height="250" style="padding: 10px">
@@ -105,7 +105,7 @@
       <br>
       <br>
 
-      <h2> Comedy </h2>
+      <h2 id="header"> Comedy </h2>
       <div class="d-flex flex-row flex-nowrap overflow-auto">
         {{#each ComedyPosters}}
           <img src="{{this}}" height="250" style="padding: 10px">

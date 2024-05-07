@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto align-items-center">
             <li class="nav-item">
-                <a class="navbar-brand d-none d-md-block" href="#">
+                <a class="navbar-brand d-none d-md-block" href="/">
                 <img src="/images/logo.png" alt="Logo" id="logo" width="60">
                 </a>
             </li>
@@ -60,12 +60,21 @@
     </nav>
 
     <div class="container">
-      <h2 class="text-white mt-2"> {{username}} </h2>
       <br><br>
-      <h3 class="text-white"> Favorites: </h3>
-      {{#each favorites}}
-        <img src="{{this.poster}}" height="180">
-      {{/each}}
+      <h1 class="text-white"> <img src="/images/defaultProfile.jpg" alt="Logo" id="logo" width="60"> {{ username }}</h1>
+      <h1 class="text-white" id="favorite"> My Favorites</h2>
+      <div class="movie-container">
+        {{#each favorites}}
+          <div class="movie-item">
+            <img src="{{ this.poster }}" height="330" id="favorites">
+            <div class="movie-details">
+              <h3>{{ this.name }}</h3>
+              <p class="overview">{{ this.overview }}</p>
+            </div>
+          </div>
+        {{/each}}
+      </div>
     </div>
+</div>
   </body>
 </html>

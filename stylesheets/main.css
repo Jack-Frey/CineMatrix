@@ -45,3 +45,71 @@ h1 {
   cursor: pointer;
   overflow: hidden;
 }
+
+#favorites {
+  margin-right: 20px;
+}
+
+#paragraph-text {
+  color: white;
+  text-align: center;
+}
+
+#overview {
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+#header {
+  color: white;
+  text-align: center;
+}
+
+.movie-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie-item {
+  display: flex;
+  margin-bottom: 50px; 
+}
+
+.movie-item img {
+  flex: 0 0 auto; 
+  margin-right: 20px;
+  margin-left: 40px;
+}
+
+.movie-details {
+  flex: 1;
+  max-width: 250px;
+  text-align: left;
+  color: whitesmoke;
+}
+
+.movie-details h3 {
+  margin-top: 0;
+  text-align: left;
+  color: white;
+}
+
+.movie-details .overview {
+  margin-top: 0px;
+}
+
+#favorite {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: left;
+}

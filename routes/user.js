@@ -110,6 +110,7 @@ async function favoritesApiFetch(username) {
                 favorites.push({
                     "name" : search["title"],
                     "poster" : "https://image.tmdb.org/t/p/original/" + search["poster_path"],
+                    "overview" : search["overview"],
                 });
             } 
             // TV show
@@ -119,6 +120,7 @@ async function favoritesApiFetch(username) {
                 favorites.push({
                     "name" : search["name"],
                     "poster" : "https://image.tmdb.org/t/p/original/" + search["poster_path"],
+                    "overview" : search["overview"],
                 });
             }
         }
