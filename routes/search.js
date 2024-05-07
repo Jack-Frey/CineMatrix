@@ -196,6 +196,7 @@ router.post("/", (req, res) => {
                 results: display,
                 loggedIn: req.session.loggedIn,
                 username: req.session.username,
+                searchQuery: contentName
             });
         })();
     });

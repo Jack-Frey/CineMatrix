@@ -61,7 +61,13 @@
 
     <div class="container">
       <br><br>
-      <h1 class="text-white"> <img src="/images/defaultProfile.jpg" alt="Logo" id="logo" width="60"> {{ username }}</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="text-white" id="username"> <img src="/images/defaultProfile.jpg" alt="Logo" id="logo" width="60"> {{ username }}</h1>
+              <form action="/favorite/removeAll" method="post" target="hiddenFrame">
+                <button id="deleteFavoritesBtn" class="btn btn-danger">Delete All Favorites</button>
+                <input id="username" name="username" value="{{ username }}" type="hidden">
+              </form>
+  </div>
       <h1 class="text-white" id="favorite"> My Favorites</h2>
       <div class="movie-container">
         {{#each favorites}}
@@ -76,5 +82,6 @@
       </div>
     </div>
 </div>
+
   </body>
 </html>

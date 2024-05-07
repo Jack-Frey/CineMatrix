@@ -32,6 +32,8 @@ h1 {
 
 #logo {
   border-radius: 20px;
+  float: left;
+  margin-right: 10px;
 }
 
 .icon-large {
@@ -93,7 +95,7 @@ h1 {
 
 .movie-details {
   flex: 1;
-  max-width: 250px;
+  max-width: 260px;
   text-align: left;
   color: whitesmoke;
 }
@@ -111,5 +113,13 @@ h1 {
 #favorite {
   margin-top: 50px;
   margin-bottom: 50px;
+  text-align: center;
+  background-color: #21282b;
+  border-radius: 20px;
+  border-width: 20px;
+  padding: 3px;
+}
+
+#username {
   text-align: left;
 }

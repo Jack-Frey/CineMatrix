@@ -72,4 +72,33 @@ router.post("/remove", (req, res) => {
     res.end(); 
 });
 
+// Removes an item from the users favorites
+async function removeFavorites(user) {
+    // Connect to database
+    const db = await dbConnect();
+    
+    // Remove from table
+    db.run(
+        `DELETE FROM favorites WHERE user = ?`,
+        [user],
+        function (error) {
+            if (error) console.error(error.message);
+        }
+    )
+}
+
+// Handle remove favorite HTTP POST request
+router.post("/removeAll", (req, res) => {
+    // Get information about the movie/show from the page
+    var username = req.body['username'];
+
+    removeFavorites(username);
+
+    // Redirect the user back to the same page
+    res.redirect(`/user/${username}`);
+});
+
 module.exports = router;
+
+
+

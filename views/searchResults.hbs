@@ -84,6 +84,7 @@
         <div class="col-sm-2 mt-2">
           {{#if ../loggedIn}}
             {{#if this.favorite}}
+              <input type="hidden" id="searchQuery" value="{{ searchQuery }}">
               <form action="/favorite/remove" method="post" target="hiddenFrame">
                 <button class="image-button">
                   <img src="../images/filled_star.png" onclick="changeImage(this);" style="float:right" width="28px">
@@ -93,6 +94,7 @@
                 <input id="username" name="username" value="{{../username}}" type="hidden">
               </form>
             {{else}}
+              <input type="hidden" id="searchQuery" value="{{ searchQuery }}">
               <form action="/favorite/add" method="post" target="hiddenFrame">
                 <button class="image-button"> 
                   <img src="../images/blank_star_white.png" onclick="changeImage(this);" style="float:right" width="28px">
@@ -110,4 +112,6 @@
     </div>
 
   </body>
+
+  
 </html>
