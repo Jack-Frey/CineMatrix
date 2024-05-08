@@ -55,6 +55,8 @@ router.post("/add", (req, res) => {
 
     addFavorite(id, type, username);
 
+    // Response to request with 204 status
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204
     res.status(204).send();
 });
 
@@ -67,6 +69,8 @@ router.post("/remove", (req, res) => {
 
     removeFavorite(id, type, username);
 
+    // Response to request with 204 status
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/204
     res.status(204).send();
 });
 
