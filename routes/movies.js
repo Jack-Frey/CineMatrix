@@ -24,6 +24,7 @@ async function GetMoviesByGenre(options, genre) {
     return results;
 }
 
+// Get images for each movie in the list
 function get_posters(list) {
     posters = [];
     for (let i = 0; i < list.length; i++) {

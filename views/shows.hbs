@@ -57,6 +57,54 @@
         </ul>
     </div>
     </nav>
+
+    <div class="container-fluid mt-2 py-2">
+      <h2> Top Rated </h2>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        {{#each TopRatedPosters}}
+          <img src="{{this}}" height="250" style="padding: 10px">
+        {{/each}}
+      </div>
+      <br>
+      <br>
+
+      <h2> Drama </h2>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        {{#each DramaPosters}}
+          <img src="{{this}}" height="250" style="padding: 10px">
+        {{/each}}
+      </div>
+      <br>
+      <br>
+
+      <h2> Crime </h2>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        {{#each CrimePosters}}
+          <img src="{{this}}" height="250" style="padding: 10px">
+        {{/each}}
+      </div>
+      <br>
+      <br>
+
+      <h2> Animation </h2>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        {{#each AnimationPosters}}
+          <img src="{{this}}" height="250" style="padding: 10px">
+        {{/each}}
+      </div>
+      <br>
+      <br>
+
+      <h2> Scifi and Fantasy </h2>
+      <div class="d-flex flex-row flex-nowrap overflow-auto">
+        {{#each ScifiFantasyPosters}}
+          <img src="{{this}}" height="250" style="padding: 10px">
+        {{/each}}
+      </div>
+      <br>
+      <br>
+      
+    </div>
     
   </body>
 </html>
