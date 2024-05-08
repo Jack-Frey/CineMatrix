@@ -97,6 +97,9 @@
         <button class="btn btn-sm btn-outline-secondary me-0" type="button">
           <i class="bi bi-three-dots-vertical"></i>
         </button>
+        <input type="hidden" name="sortByVar" id="sortByVar" value="">
+          <button type="button" class="sortButton" onclick="setSortBy('year')">Sort by Year</button>
+          <button type="button" class="sortButton" onclick="setSortBy('rating')">Sort by Rating</button>
       </form>
     </div>
 
@@ -108,6 +111,14 @@
     </footer>
     -->
 
+  <!-- Updates the sortByVar -->
+  <script>
+    function setSortBy(sortBy) {
+      document.getElementById('sortByVar').value = sortBy;
+      document.getElementById('search').submit(); // Submit the form after updating sortByVar
+    }
+  </script>
+    
   <script>
         document.addEventListener('DOMContentLoaded', function () {
             const myCarouselElement = document.querySelector('#myCarousel');
