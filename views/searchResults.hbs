@@ -15,12 +15,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Beth+Ellen&display=swap" rel="stylesheet">
 
     <script>
-      function changeImage(image) {
-        console.log(image.src);
+      function changeImage(image, id) {
         if (image.src == "http://localhost:3000/images/blank_star_white.png") {
           image.src = "../images/filled_star.png";
         } else {
           image.src = "../images/blank_star_white.png";
+        }
+
+        var form = document.getElementById(id);
+        console.log(form.action);
+        if (form.action == "http://localhost:3000/favorite/add") {
+          form.action = "http://localhost:3000/favorite/remove";
+        } else if (form.action == "http://localhost:3000/favorite/remove") {
+          form.action = "http://localhost:3000/favorite/add";
         }
       }
     </script>
@@ -72,7 +79,7 @@
     
     <div class="container mt-2">
       <!-- This looks stupid but I promise it's necessary -->
-      <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
+      <iframe name="hiddenFrame" id="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
       
       {{#each results}}
       <div class="row">
@@ -82,22 +89,26 @@
           <p style="color: white"> {{this.desc}} </p>
         </div>
         <div class="col-sm-2 mt-2">
+          <!-- 
+            For the two forms below, the actions for each one are reversed.
+            So the favorite button has /favorite/remove and unfavorite has /favorite/remove.
+            It looks confusing but this is just the easiest way to fix the
+            problem with changing the button functions. 
+          -->  
           {{#if ../loggedIn}}
             {{#if this.favorite}}
-              <input type="hidden" id="searchQuery" value="{{ searchQuery }}">
-              <form action="/favorite/remove" method="post" target="hiddenFrame">
+              <form action="/favorite/add" method="post" target="hiddenFrame" id="{{this.id}}">
                 <button class="image-button">
-                  <img src="../images/filled_star.png" onclick="changeImage(this);" style="float:right" width="28px">
+                  <img src="../images/filled_star.png" onclick="changeImage(this, {{this.id}});" style="float:right" width="28px">
                 </button>
-                <input id="id" name="id" value="{{this.id}}" type="hidden" target="hiddenFrame">
+                <input id="id" name="id" value="{{this.id}}" type="hidden">
                 <input id="type" name="type" value="{{this.type}}" type="hidden">
                 <input id="username" name="username" value="{{../username}}" type="hidden">
               </form>
             {{else}}
-              <input type="hidden" id="searchQuery" value="{{ searchQuery }}">
-              <form action="/favorite/add" method="post" target="hiddenFrame">
+              <form action="/favorite/remove" method="post" target="hiddenFrame" id="{{this.id}}">
                 <button class="image-button"> 
-                  <img src="../images/blank_star_white.png" onclick="changeImage(this);" style="float:right" width="28px">
+                  <img src="../images/blank_star_white.png" onclick="changeImage(this, {{this.id}});" style="float:right" width="28px">
                 </button>
                 <input id="id" name="id" value="{{this.id}}" type="hidden">
                 <input id="type" name="type" value="{{this.type}}" type="hidden">

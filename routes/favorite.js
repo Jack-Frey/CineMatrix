@@ -55,8 +55,9 @@ router.post("/add", (req, res) => {
 
     addFavorite(id, type, username);
 
-    // Acknowledge request; Don't do anything else 
-    res.end();
+    console.log("Added Item");
+
+    res.status(204).send();
 });
 
 // Handle remove favorite HTTP POST request
@@ -68,8 +69,9 @@ router.post("/remove", (req, res) => {
 
     removeFavorite(id, type, username);
 
-    // Acknowledge request; Don't do anything else
-    res.end(); 
+    console.log("Removed Item");
+
+    res.status(204).send();
 });
 
 // Removes an item from the users favorites
