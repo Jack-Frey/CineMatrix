@@ -55,8 +55,6 @@ router.post("/add", (req, res) => {
 
     addFavorite(id, type, username);
 
-    console.log("Added Item");
-
     res.status(204).send();
 });
 
@@ -68,8 +66,6 @@ router.post("/remove", (req, res) => {
     var username = req.body['username'];
 
     removeFavorite(id, type, username);
-
-    console.log("Removed Item");
 
     res.status(204).send();
 });
