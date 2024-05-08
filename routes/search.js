@@ -92,9 +92,10 @@ async function get_results(name, options) {
     return results
 }
 
-// Handle search post request
+// Handle search and sort post requests
 router.post("/", (req, res) => {
     var contentName = req.body.textbox;
+    var sortByVar = req.body["sortByVar"];
 
     // HTTP GET options for API call
     var options = {
@@ -163,17 +164,14 @@ router.post("/", (req, res) => {
             }
         }
 
-        // Order search results by highest to lowest rating and then by newest to oldest release date.
-        display.sort((a, b) => {
-            // Compare by rating first
-            const ratingComparison = b.rating - a.rating;
-            if (ratingComparison !== 0) {
-                return ratingComparison; // If ratings are different, return the comparison result
-            } else {
-                // If ratings are the same, compare by year
-                return new Date(b.date) - new Date(a.date);
-            }
-        });
+        // Sorting options
+        if (sortByVar === 'year') {
+            display.sort((a, b) => {
+              return new Date(b.date) - new Date(a.date);
+          }); // Sort by year
+        } else if (sortByVar === 'rating') {
+            display.sort((a, b) => b.rating - a.rating); // Sort by rating
+        }
 
         (async() => {
             // Connect to database
