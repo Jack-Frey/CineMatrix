@@ -70,6 +70,7 @@
   </div>
       <h1 class="text-white" id="favorite"> My Favorites</h2>
       <div class="movie-container">
+      {{#if favorites}}
         {{#each favorites}}
           <div class="movie-item">
             <img src="{{ this.poster }}" height="330" id="favorites">
@@ -81,6 +82,9 @@
         {{/each}}
       </div>
     </div>
+      {{else}}
+        <h1 id="noFaves">You have no Favorites. You can add some in the search section!</h3>
+      {{/if}}
 </div>
 
   </body>

@@ -88,18 +88,30 @@
         <div class="flex-grow-1">
           <input class="form-control" type="text" placeholder="Search for a Movie/TV Show" name="textbox" aria-label="Search">
         </div>
-        <button class="btn btn-sm btn-outline-secondary me-0" type="button">
-          <i class="bi bi-rewind"></i>
-        </button>
-        <button class="btn btn-outline-success me-0" type="submit" value="Search">
-          <i class="bi bi-play-btn"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-secondary me-0" type="button">
-          <i class="bi bi-three-dots-vertical"></i>
-        </button>
-        <input type="hidden" name="sortByVar" id="sortByVar" value="">
-          <button type="button" class="sortButton" onclick="setSortBy('year')">Sort by Year</button>
+        <div class="tooltip-container">
+          <input type="hidden" name="sortByVar" id="sortByVar" value="">
+          <button type="button" onclick="setSortBy('year')" class="btn btn-sm btn-outline-secondary me-0" title="Search by year">
+            <i class="bi bi-rewind"></i>
+          </button>
+          <span class="tooltiptext">Search by year</span>
+        </div>
+
+        <div class="tooltip-container">
+          <button class="btn btn-outline-success me-0" type="submit" value="Search" title="Search">
+            <i class="bi bi-play-btn"></i>
+          </button>
+          <span class="tooltiptext">Search</span>
+        </div>
+
+        <div class="tooltip-container">
+          <button onclick="setSortBy('rating')" class="btn btn-sm btn-outline-secondary me-0" type="button" title="Search by rating">
+            <i class="bi bi-three-dots-vertical"></i>
+          </button>
+          <span class="tooltiptext">Search by rating</span>
+        </div>
+          <!--<button type="button" class="sortButton" onclick="setSortBy('year')">Sort by Year</button>
           <button type="button" class="sortButton" onclick="setSortBy('rating')">Sort by Rating</button>
+          -->
       </form>
     </div>
 
